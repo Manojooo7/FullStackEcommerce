@@ -1,7 +1,6 @@
 import {Router} from 'express'
 import { createProduct, deleteProduct, getProductById, listProducts, updateProduct } from './productController'
 
-
 const router = Router()
 
 router.get('/', listProducts)
