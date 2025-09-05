@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { doublePrecision, integer, uuid, pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
 
 
 export const productTable = pgTable("products", {
@@ -12,3 +13,6 @@ export const productTable = pgTable("products", {
   category: text().array(),
   tags: text().array()
 });
+
+export const createProductSchema = createInsertSchema(productTable).omit({id: true})
+export const updateProductSchema = createUpdateSchema(productTable).omit({id: true}).partial()

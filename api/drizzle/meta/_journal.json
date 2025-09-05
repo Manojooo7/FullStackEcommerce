@@ -8,6 +8,13 @@
       "when": 1756663834850,
       "tag": "0000_broad_black_crow",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756923158259,
+      "tag": "0001_burly_yellow_claw",
+      "breakpoints": true
     }
   ]
 }

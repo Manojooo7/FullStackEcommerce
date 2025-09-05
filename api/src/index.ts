@@ -1,5 +1,6 @@
 import express, {json, urlencoded} from 'express'
-import productsRouter from './routes/products/index'
+import authRoutes from './routes/auth/index.js'
+import productsRoutes from './routes/products/index.js'
 
 const app = express();
 app.use(urlencoded({extended: false}))
@@ -11,7 +12,8 @@ app.get('/', (req, res)=>{
     res.send("Hello Manoj")
 })
 
-app.use('/products', productsRouter)
+app.use('/products', productsRoutes)
+app.use('/auth', authRoutes)
 
 
 

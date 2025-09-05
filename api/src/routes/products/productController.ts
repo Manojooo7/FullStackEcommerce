@@ -1,7 +1,8 @@
 import { eq } from "drizzle-orm";
 import { Request, Response } from "express"
-import { db } from 'src/db'
-import { productTable } from 'src/db/productsSchema'
+import { db } from '../../db/index.js'
+import { productTable, createProductSchema } from '../../db/productsSchema.js'
+import _ from "lodash"
 
 export async function listProducts(req:Request, res:Response){
     try {
@@ -35,17 +36,12 @@ export async function getProductById(req:Request, res:Response){
 
 export async function createProduct(req:Request, res:Response){
     console.log(req.body);
+    if(!req.body){
+        
+    }
 
     try {
-        const productData = {
-            name: req.body.name,
-            description: req.body.description,
-            image: req.body.image || null,
-            price: Number(req.body.price),
-            quantity: Number(req.body.quantity),
-            category: Array.isArray(req.body.category) ? req.body.category : [req.body.category],
-            tags: Array.isArray(req.body.tags) ? req.body.tags : [req.body.tags]
-        };
+        const productData = req.cleanBody;
         const product = await db
         .insert(productTable)
         .values(productData)
@@ -66,7 +62,7 @@ export async function createProduct(req:Request, res:Response){
 export async function updateProduct(req:Request, res:Response){
     
     const id = req.params.id
-    const updatedData = req.body
+    const updatedData = req.cleanBody
     
     if(!id || !updatedData){
         res.status(400).json({message: "invalid request"})
